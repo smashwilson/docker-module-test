@@ -1,0 +1,30 @@
+---
+
+- name: existing stopped container
+  docker: name=stopped state=started image=debian:jessie command=echo
+
+- name: existing running container
+  docker: name=running state=started image=debian:jessie command='sleep 10000'
+
+- name: <restarted> restart stopped container | changed
+  docker: name=stopped state=restarted image=debian:jessie command=echo
+  register: restarted0
+
+- assert:
+    that:
+    - restarted0 | changed
+    - restarted0.summary.removed == 1
+    - restarted0.summary.created == 1
+    - restarted0.summary.started == 1
+    - restarted0.summary.restarted == 0
+
+- name: <restarted> restart running container | changed
+  docker: name=running state=restarted image=debian:jessie command='sleep 100000'
+  register: restarted1
+
+- assert:
+    that:
+    - restarted1 | changed
+    - restarted1.summary.created == 0
+    - restarted1.summary.started == 0
+    - restarted1.summary.restarted == 1

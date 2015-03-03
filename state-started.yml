@@ -1,0 +1,50 @@
+---
+
+- name: existing, stopped container
+  docker: name=existing_stopped state=started image=debian:jessie command="echo 'stopped'"
+
+- name: <started> named container | changed
+  docker: name=started state=started image=debian:jessie command='sleep 100000'
+  register: started0
+
+- assert:
+    that:
+    - started0 | changed
+    - started0.summary.created == 1
+    - started0.summary.started == 1
+
+- name: <started> named container | ok
+  docker: name=started state=started image=debian:jessie command='sleep 100000'
+  register: started1
+
+- assert: { that: "not (started1 | changed)" }
+
+- name: <started> count containers | changed x3
+  docker: count=3 state=started image=debian:jessie command='sleep 100001'
+  register: started2
+
+- assert:
+    that:
+    - started2 | changed
+    - started2.summary.created == 3
+    - started2.summary.started == 3
+
+- name: <started> count containers | changed -1
+  docker: count=2 state=started image=debian:jessie command='sleep 100001'
+  register: started3
+
+- assert:
+    that:
+    - started3 | changed
+    - started3.summary.stopped == 1
+
+- name: <started> start a stopped container | changed
+  docker: name=existing_stopped state=started image=debian:jessie command="echo 'started again'"
+  register: started4
+
+- assert:
+    that:
+    - started4 | changed
+    - started4.summary.removed == 1
+    - started4.summary.created == 1
+    - started4.summary.started == 1

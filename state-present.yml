@@ -1,0 +1,73 @@
+---
+
+- name: <present> named container | changed
+  docker: name=present state=present image=debian:jessie command="echo 'present by name'"
+  register: present0
+
+- assert:
+    that:
+    - present0 | changed
+    - present0.summary.created == 1
+
+- name: <present> named container | ok
+  docker: name=present state=present image=debian:jessie command="echo 'present by name'"
+  register: present1
+
+- assert:
+    that:
+    - not (present1 | changed)
+    - present1.summary.created == 0
+
+- name: <present> container by image and command | changed
+  docker: state=present image=debian:jessie command="echo 'present by command'"
+  register: present2
+
+- assert:
+    that:
+    - present2 | changed
+    - present2.summary.created == 1
+
+- name: <present> container by image and command | ok
+  docker: state=present image=debian:jessie command="echo 'present by command'"
+  register: present3
+
+- assert:
+    that:
+    - not (present3 | changed)
+    - present3.summary.created == 0
+
+- name: <present> count containers | changed x3
+  docker: count=3 state=present image=debian:jessie command="echo 'present by count'"
+  register: present4
+
+- assert:
+    that:
+    - present4 | changed
+    - present4.summary.created == 3
+
+- name: <present> count containers | ok
+  docker: count=3 state=present image=debian:jessie command="echo 'present by count'"
+  register: present5
+
+- assert:
+    that:
+    - not (present5 | changed)
+    - present5.summary.created == 0
+
+- name: <present> count containers | changed +1
+  docker: count=4 state=present image=debian:jessie command="echo 'present by count'"
+  register: present6
+
+- assert:
+    that:
+    - present6 | changed
+    - present6.summary.created == 1
+
+- name: <present> count containers | changed -2
+  docker: count=2 state=present image=debian:jessie command="echo 'present by count'"
+  register: present7
+
+- assert:
+    that:
+    - present7 | changed
+    - present7.summary.removed == 2

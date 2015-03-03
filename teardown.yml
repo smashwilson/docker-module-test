@@ -1,0 +1,5 @@
+---
+
+- name: remove all containers
+  docker: state=absent image=debian:jessie
+  tags: ["teardown"]

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+clear
+ansible-playbook -i ./inventory -M ~/code/ansible-modules-core/cloud/docker site.yml $*

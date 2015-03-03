@@ -1,0 +1,33 @@
+---
+
+- name: existing stopped container
+  docker: name=existing_stopped state=started image=debian:jessie command=echo
+
+- name: existing running container
+  docker: name=existing_running state=started image=debian:jessie command='sleep 10000'
+
+- name: <absent> stop and remove a running container | changed
+  docker: name=existing_running state=absent image=debian:jessie
+  register: absent0
+
+- assert:
+    that:
+    - absent0 | changed
+    - absent0.summary.stopped == 1
+    - absent0.summary.removed == 1
+
+- name: <absent> remove a stopped container | changed
+  docker: name=existing_stopped state=absent image=debian:jessie
+  register: absent1
+
+- assert:
+    that:
+    - absent1 | changed
+    - absent1.summary.stopped == 0
+    - absent1.summary.removed == 1
+
+- name: <absent> container that's already missing | ok
+  docker: name=gone state=absent image=debian:jessie
+  register: absent2
+
+- assert: { that: "not (absent2 | changed)" }

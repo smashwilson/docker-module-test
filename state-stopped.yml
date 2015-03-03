@@ -1,0 +1,22 @@
+---
+
+- name: existing stopped container
+  docker: name=existing_stopped state=started image=debian:jessie command=echo
+
+- name: existing running container
+  docker: name=existing_running state=started image=debian:jessie command='sleep 10000'
+
+- name: <stopped> stop stopped container | ok
+  docker: name=existing_stopped state=stopped image=debian:jessie
+  register: stopped0
+
+- assert: { that: "not (stopped0 | changed)" }
+
+- name: <stopped> stop running container | changed
+  docker: name=existing_running state=stopped image=debian:jessie
+  register: stopped1
+
+- assert:
+    that:
+    - stopped1 | changed
+    - stopped1.summary.stopped == 1

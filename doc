@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec ansible-doc -M ~/code/ansible-modules-core/cloud/docker docker
