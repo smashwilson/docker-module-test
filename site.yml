@@ -4,6 +4,9 @@
   gather_facts: no
   tasks:
 
+  - include: teardown.yml
+    tags: ["present", "started", "reloaded", "restarted", "stopped", "killed", "absent"]
+
   # STATE: PRESENT
 
   - include: state-present.yml tags=present
