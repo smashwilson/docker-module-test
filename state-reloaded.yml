@@ -1,1 +1,94 @@
 ---
+
+- name: existing container we can link to
+  docker: name=linkme state=started image=debian:jessie command='sleep 1d' expose=8000
+
+- name: existing container we can mount a volume from
+  docker: name=volumeme state=present image=debian:jessie volumes=["/usr"]
+
+- name: existing running container with all the bells and whistles
+  docker:
+    name: running
+    state: started
+    image: debian:jessie
+    command: sleep 1d
+    expose: ["2000"]
+    ports: ["3000", "3001:3002", "127.0.0.1:3002:3003", "3004:3005/tcp", "3006/tcp"]
+    volumes: ["/usr:/var/wat", "/etc:/var/huh:ro", "/usr/local"]
+    volumes_from: ["volumeme"]
+    links: ["linkme"]
+    memory_limit: 512MB
+    hostname: initialhostname
+    domainname: initialdomainname
+    env:
+      INBOTH: "yes"
+      VALUECHANGE: "initialvalue"
+      ONLYINITIAL: "yes"
+    dns:
+    - "8.8.8.8"
+    stdin_open: no
+    tty: no
+    restart_policy: on-failure
+
+- name: reload a container with no effects
+  docker:
+    name: running
+    state: reloaded
+    image: debian:jessie
+    command: sleep 10000
+    expose: ["2000"]
+    ports: ["3000", "3001:3002", "127.0.0.1:3002:3003", "3004:3005/tcp", "3006/tcp"]
+    volumes: ["/usr:/var/wat", "/etc:/var/huh:ro", "/usr/local"]
+    volumes_from: ["volumeme"]
+    links: ["linkme"]
+    memory_limit: 512MB
+    hostname: initialhostname
+    domainname: initialdomainname
+    env:
+      INBOTH: "yes"
+      VALUECHANGE: "initialvalue"
+      ONLYINITIAL: "yes"
+    dns:
+    - "8.8.8.8"
+    stdin_open: no
+    tty: no
+    restart_policy: on-failure
+  register: reloaded0
+
+- debug: var=reloaded0.reload_reasons
+
+- assert: { that: "not (reloaded0 | changed)" }
+
+- name: reload a container with a changed env
+  docker:
+    name: running
+    state: reloaded
+    image: debian:jessie
+    command: sleep 10000
+    expose: ["2000"]
+    ports: ["3000", "3001:3002", "127.0.0.1:3002:3003", "3004:3005/tcp", "3006/tcp"]
+    volumes: ["/usr:/var/wat", "/etc:/var/huh:ro", "/usr/local"]
+    volumes_from: ["volumeme"]
+    links: ["linkme"]
+    memory_limit: 512MB
+    hostname: initialhostname
+    domainname: initialdomainname
+    env:
+      INBOTH: "yes"
+      VALUECHANGE: "differentvalue"
+      ONLYCHANGED: "yes"
+    dns:
+    - "8.8.8.8"
+    stdin_open: no
+    tty: no
+    restart_policy: on-failure
+  register: reloaded1
+
+- assert:
+    that:
+    - reloaded1 | changed
+    - reloaded1.summary.stopped = 1
+    - reloaded1.summary.removed = 1
+    - reloaded1.summary.created = 1
+    - reloaded1.summary.started = 1
+    - reloaded1.reload_reasons = env

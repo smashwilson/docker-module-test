@@ -19,6 +19,9 @@
 
   # STATE: RELOADED
 
+  - include: state-reloaded.yml tags=reloaded
+  - include: teardown.yml tags=reloaded
+
   # STATE: RESTARTED
 
   - include: state-restarted.yml tags=restarted
