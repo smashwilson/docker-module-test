@@ -55,8 +55,6 @@
     restart_policy: on-failure
   register: reloaded0
 
-- debug: var=reloaded0.reload_reasons
-
 - assert: { that: "not (reloaded0 | changed)" }
 
 - name: reload a container with a changed env
@@ -84,11 +82,13 @@
     restart_policy: on-failure
   register: reloaded1
 
+- debug: var=reloaded1.reload_reasons
+
 - assert:
     that:
     - reloaded1 | changed
-    - reloaded1.summary.stopped = 1
-    - reloaded1.summary.removed = 1
-    - reloaded1.summary.created = 1
-    - reloaded1.summary.started = 1
-    - reloaded1.reload_reasons = env
+    - reloaded1.summary.stopped == 1
+    - reloaded1.summary.removed == 1
+    - reloaded1.summary.created == 1
+    - reloaded1.summary.started == 1
+    - reloaded1.reload_reasons == "environment"
