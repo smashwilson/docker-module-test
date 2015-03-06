@@ -35,7 +35,7 @@
     name: running
     state: reloaded
     image: debian:jessie
-    command: sleep 10000
+    command: sleep 1d
     expose: ["2000"]
     ports: ["3000", "3001:3002", "127.0.0.1:3002:3003", "3004:3005/tcp", "3006/tcp"]
     volumes: ["/usr:/var/wat", "/etc:/var/huh:ro", "/usr/local"]
@@ -62,7 +62,7 @@
     name: running
     state: reloaded
     image: debian:jessie
-    command: sleep 10000
+    command: sleep 1d
     expose: ["2000"]
     ports: ["3000", "3001:3002", "127.0.0.1:3002:3003", "3004:3005/tcp", "3006/tcp"]
     volumes: ["/usr:/var/wat", "/etc:/var/huh:ro", "/usr/local"]
