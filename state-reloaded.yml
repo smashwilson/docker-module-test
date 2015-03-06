@@ -82,8 +82,6 @@
     restart_policy: on-failure
   register: reloaded1
 
-- debug: var=reloaded1.reload_reasons
-
 - assert:
     that:
     - reloaded1 | changed
@@ -92,3 +90,25 @@
     - reloaded1.summary.created == 1
     - reloaded1.summary.started == 1
     - reloaded1.reload_reasons == "environment"
+
+- name: basic container
+  docker: name=basic state=started image=debian:jessie command='sleep 1d'
+
+- name: no-op reload of basic container
+  docker: name=basic state=reloaded image=debian:jessie command='sleep 1d'
+  register: reloaded2
+
+- assert: { that: "not reloaded2 | changed" }
+
+- name: reload basic container with new exposed port
+  docker: name=basic state=reloaded image=debian:jessie command='sleep 1d' expose=9000
+  register: reloaded3
+
+- assert:
+    that:
+    - reloaded3 | changed
+    - reloaded3.summary.stopped == 1
+    - reloaded3.summary.removed == 1
+    - reloaded3.summary.created == 1
+    - reloaded3.summary.started == 1
+    - reloaded3.reload_reasons == "exposed_ports (set([]) => set(['9000/tcp']))"
