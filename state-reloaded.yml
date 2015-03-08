@@ -112,3 +112,28 @@
     - reloaded3.summary.created == 1
     - reloaded3.summary.started == 1
     - reloaded3.reload_reasons == "exposed_ports (set([]) => set(['9000/tcp']))"
+
+- name: container with exposed ports, volumes, and environment variables
+  docker: name=exposed state=started image=testimage command='sleep 1d'
+
+- name: no-op reload of container with exposed things
+  docker: name=exposed state=reloaded image=testimage command='sleep 1d'
+  register: reloaded4
+
+- debug: var=reloaded4
+
+- assert: { that: "not reloaded4 | changed" }
+
+- name: reload of container with exposed things to add an environment variable
+  docker:
+    name: exposed
+    state: reloaded
+    image: testimage
+    command: sleep 1d
+    env:
+      NEWVAR: newvalue
+  register: reloaded5
+
+- debug: var=reloaded5
+
+- assert: { that: "reloaded5 | changed" }
