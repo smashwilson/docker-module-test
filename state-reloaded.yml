@@ -114,10 +114,18 @@
     - reloaded3.reload_reasons == "exposed_ports (set([]) => set(['9000/tcp']))"
 
 - name: container with exposed ports, volumes, and environment variables
-  docker: name=exposed state=started image=testimage command='sleep 1d'
+  docker:
+    name: exposed
+    state: started
+    image: testimage
+    command: sleep 1d
 
 - name: no-op reload of container with exposed things
-  docker: name=exposed state=reloaded image=testimage command='sleep 1d'
+  docker:
+    name: exposed
+    state: reloaded
+    image: testimage
+    command: sleep 1d
   register: reloaded4
 
 - debug: var=reloaded4
