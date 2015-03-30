@@ -2,4 +2,6 @@
 
 docker build -t testimage .
 clear
-ansible-playbook -i ./inventory -M ~/code/ansible-modules-core/cloud/docker site.yml $*
+
+export ANSIBLE_LIBRARY=~/code/ansible-modules-core
+ansible-playbook -i ./inventory site.yml $*
