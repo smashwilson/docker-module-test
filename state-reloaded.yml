@@ -89,7 +89,6 @@
     - reloaded1.summary.removed == 1
     - reloaded1.summary.created == 1
     - reloaded1.summary.started == 1
-    - reloaded1.reload_reasons == "environment"
 
 - name: basic container
   docker: name=basic state=started image=debian:jessie command='sleep 1d'
