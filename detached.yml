@@ -1,0 +1,13 @@
+---
+
+- name: container with detached=no that should fail
+  docker:
+    image: busybox
+    command: cat "a can of tuna"
+    name: undetached
+    detach: no
+    state: started
+  register: detached0
+  ignore_errors: yes
+
+- assert: { that: "detached0 | failed" }

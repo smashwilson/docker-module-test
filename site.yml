@@ -41,3 +41,8 @@
 
   - include: state-absent.yml tags=absent
   - include: teardown.yml tags=absent
+
+  # detached=true
+
+  - include: detached.yml tags=detached
+  - include: teardown.yml tags=detached
