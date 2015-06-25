@@ -55,6 +55,8 @@
     restart_policy: on-failure
   register: reloaded0
 
+- debug: var=reloaded0
+
 - assert: { that: "not (reloaded0 | changed)" }
 
 - name: reload a container with a changed env
@@ -96,6 +98,8 @@
 - name: no-op reload of basic container
   docker: name=basic state=reloaded image=debian:jessie command='sleep 1d'
   register: reloaded2
+
+- debug: var=reloaded2
 
 - assert: { that: "not reloaded2 | changed" }
 
