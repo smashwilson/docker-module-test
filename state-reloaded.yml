@@ -144,7 +144,18 @@
   docker:
     name: multi
     state: reloaded
-    image: debian
+    image: debian:jessie
+    command: sleep 1d
+    ports:
+    - "3000:8080"
+    - "4000:8080"
+    net: bridge
+
+- name: no-op reload of container with multiple host ports
+  docker:
+    name: multi
+    state: reloaded
+    image: debian:jessie
     command: sleep 1d
     ports:
     - "3000:8080"
@@ -155,22 +166,6 @@
 - debug: var=reloaded5
 
 - assert: { that: "not reloaded5 | changed"}
-
-- name: no-op reload of container with multiple host ports
-  docker:
-    name: multi
-    state: reloaded
-    image: debian
-    command: sleep 1d
-    ports:
-    - "3000:8080"
-    - "4000:8080"
-    net: bridge
-  register: reloaded6
-
-- debug: var=reloaded6
-
-- assert: { that: "not reloaded6 | changed"}
 
 - name: reload of container with multiple host ports
   docker:
@@ -183,18 +178,18 @@
     - "4000:8080"
     - "5000:8080"
     net: bridge
-  register: reloaded7
+  register: reloaded6
 
-- debug: var=reloaded7
+- debug: var=reloaded6
 
 - assert:
     that:
-    - reloaded7 | changed
-    - reloaded7.summary.stopped == 1
-    - reloaded7.summary.removed == 1
-    - reloaded7.summary.created == 1
-    - reloaded7.summary.started == 1
-    - reloaded7.reload_reasons == "exposed_ports (set([]) => set(['9000/tcp']))"
+    - reloaded6 | changed
+    - reloaded6.summary.stopped == 1
+    - reloaded6.summary.removed == 1
+    - reloaded6.summary.created == 1
+    - reloaded6.summary.started == 1
+    - '"port bindings" in reloaded6.reload_reasons'
 
 - name: reload of container with exposed things to add an environment variable
   docker:
@@ -205,8 +200,8 @@
     env:
       NEWVAR: newvalue
     net: bridge
-  register: reloaded8
+  register: reloaded7
 
-- debug: var=reloaded8
+- debug: var=reloaded7
 
-- assert: { that: "reloaded8 | changed" }
+- assert: { that: "reloaded7 | changed" }
