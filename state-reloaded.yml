@@ -129,11 +129,65 @@
     state: reloaded
     image: testimage
     command: sleep 1d
+    net: bridge
   register: reloaded4
 
 - debug: var=reloaded4
 
 - assert: { that: "not reloaded4 | changed" }
+
+- name: container with multiple host ports bound to the same guest port
+  docker:
+    name: multi
+    state: reloaded
+    image: debian
+    command: sleep 1d
+    ports:
+    - "3000:8080"
+    - "4000:8080"
+  register: reloaded5
+
+- debug: var=reloaded5
+
+- assert: { that: "not reloaded5 | changed"}
+
+- name: no-op reload of container with multiple host ports
+  docker:
+    name: multi
+    state: reloaded
+    image: debian
+    command: sleep 1d
+    ports:
+    - "3000:8080"
+    - "4000:8080"
+  register: reloaded6
+
+- debug: var=reloaded6
+
+- assert: { that: "not reloaded6 | changed"}
+
+- name: reload of container with multiple host ports
+  docker:
+    name: multi
+    state: reloaded
+    image: debian
+    command: sleep 1d
+    ports:
+    - "3000:8080"
+    - "4000:8080"
+    - "5000:8080"
+  register: reloaded7
+
+- debug: var=reloaded7
+
+- assert:
+    that:
+    - reloaded7 | changed
+    - reloaded7.summary.stopped == 1
+    - reloaded7.summary.removed == 1
+    - reloaded7.summary.created == 1
+    - reloaded7.summary.started == 1
+    - reloaded7.reload_reasons == "exposed_ports (set([]) => set(['9000/tcp']))"
 
 - name: reload of container with exposed things to add an environment variable
   docker:
@@ -143,8 +197,8 @@
     command: sleep 1d
     env:
       NEWVAR: newvalue
-  register: reloaded5
+  register: reloaded8
 
-- debug: var=reloaded5
+- debug: var=reloaded8
 
-- assert: { that: "reloaded5 | changed" }
+- assert: { that: "reloaded8 | changed" }
