@@ -20,6 +20,7 @@
     memory_limit: 512MB
     hostname: initialhostname
     domainname: initialdomainname
+    net: bridge
     env:
       INBOTH: "yes"
       VALUECHANGE: "initialvalue"
@@ -44,6 +45,7 @@
     memory_limit: 512MB
     hostname: initialhostname
     domainname: initialdomainname
+    net: bridge
     env:
       INBOTH: "yes"
       VALUECHANGE: "initialvalue"
@@ -73,6 +75,7 @@
     memory_limit: 512MB
     hostname: initialhostname
     domainname: initialdomainname
+    net: bridge
     env:
       INBOTH: "yes"
       VALUECHANGE: "differentvalue"
@@ -93,10 +96,10 @@
     - reloaded1.summary.started == 1
 
 - name: basic container
-  docker: name=basic state=started image=debian:jessie command='sleep 1d'
+  docker: name=basic state=started image=debian:jessie net=bridge command='sleep 1d'
 
 - name: no-op reload of basic container
-  docker: name=basic state=reloaded image=debian:jessie command='sleep 1d'
+  docker: name=basic state=reloaded image=debian:jessie net=bridge command='sleep 1d'
   register: reloaded2
 
 - debug: var=reloaded2
@@ -104,7 +107,7 @@
 - assert: { that: "not reloaded2 | changed" }
 
 - name: reload basic container with new exposed port
-  docker: name=basic state=reloaded image=debian:jessie command='sleep 1d' expose=9000
+  docker: name=basic state=reloaded image=debian:jessie net=bridge command='sleep 1d' expose=9000
   register: reloaded3
 
 - assert:
@@ -122,6 +125,7 @@
     state: started
     image: testimage
     command: sleep 1d
+    net: bridge
 
 - name: no-op reload of container with exposed things
   docker:
@@ -145,6 +149,7 @@
     ports:
     - "3000:8080"
     - "4000:8080"
+    net: bridge
   register: reloaded5
 
 - debug: var=reloaded5
@@ -160,6 +165,7 @@
     ports:
     - "3000:8080"
     - "4000:8080"
+    net: bridge
   register: reloaded6
 
 - debug: var=reloaded6
@@ -176,6 +182,7 @@
     - "3000:8080"
     - "4000:8080"
     - "5000:8080"
+    net: bridge
   register: reloaded7
 
 - debug: var=reloaded7
@@ -197,6 +204,7 @@
     command: sleep 1d
     env:
       NEWVAR: newvalue
+    net: bridge
   register: reloaded8
 
 - debug: var=reloaded8
