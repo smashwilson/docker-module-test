@@ -104,3 +104,33 @@
   tags:
   - reloaded
   - reloaded_full_noop
+
+- include: exporter-noop.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_noop
+
+- include: exporter-explicit-noop.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_explicit_noop
+
+- include: exporter-env-added.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_env_added
+
+- include: exporter-env-changed.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_env_changed
+
+- include: exporter-expose-added.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_expose_added

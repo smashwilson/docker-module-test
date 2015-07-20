@@ -1,0 +1,23 @@
+---
+
+- include: exporter.yml
+
+- name: exporter-env-added
+  docker:
+    name: exporter
+    image: exporter
+    state: reloaded
+    env:
+      ADDED: "this is new"
+  register: exporter_env_added
+
+- debug: var=exporter_env_added
+
+- name: exporter-env-added assertion
+  assert:
+    that:
+    - exporter_env_added | changed
+    - '"environment" in exporter_env_added.reload_reasons'
+    - '"ADDED" in exporter_env_added.reload_reasons'
+
+- include: ../teardown.yml

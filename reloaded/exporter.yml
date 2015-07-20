@@ -1,0 +1,7 @@
+---
+
+- name: exporter
+  docker:
+    name: exporter
+    image: exporter
+    state: started
