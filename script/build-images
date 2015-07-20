@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -ueo pipefail
+
+ROOT=$(cd $(dirname $0)/.. && pwd)
+
+for IMAGEDIR in ${ROOT}/images/*; do
+  IMAGENAME=$(basename ${IMAGEDIR})
+
+  docker build -t ${IMAGENAME} ${IMAGEDIR}
+
+  echo "[..] Building ${IMAGENAME}"
+  echo "[..] ${IMAGENAME} built"
+done
