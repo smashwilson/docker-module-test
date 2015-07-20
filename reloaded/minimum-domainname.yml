@@ -15,6 +15,6 @@
 - assert:
     that:
     - different_domainname | changed
-    - different_domainname.reload_reasons == "domainname (\"\") => (\"different\")"
+    - different_domainname.reload_reasons == "domainname ( => different)"
 
 - include: ../teardown.yml
