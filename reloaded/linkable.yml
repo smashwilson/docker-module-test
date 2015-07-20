@@ -1,0 +1,4 @@
+---
+
+- name: existing container we can link to
+  docker: name=linkme state=started image=debian:jessie command='sleep 1d' expose=8000

@@ -1,10 +1,8 @@
 ---
 
-- name: existing container we can link to
-  docker: name=linkme state=started image=debian:jessie command='sleep 1d' expose=8000
+- include: linkable.yml
 
-- name: existing container we can mount a volume from
-  docker: name=volumeme state=present image=debian:jessie volumes=["/usr"]
+- include: volumeable.yml
 
 - name: specify all possible options
   docker:
