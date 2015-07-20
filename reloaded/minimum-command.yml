@@ -15,6 +15,6 @@
 - assert:
     that:
     - different_command | changed
-    - different_command.reload_reasons == "command ([\"sleep\", \"1d\"]) => ([\"sleep\", \"2d\"])"
+    - different_command.reload_reasons == "command ([u'sleep', u'1d'] => ['sleep', '2d'])"
 
 - include: teardown.yml
