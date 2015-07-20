@@ -16,6 +16,6 @@
 - assert:
     that:
     - different_expose | changed
-    - different_expose.reload_reasons == "exposed_ports ([]) => ([\"9000/tcp\"])"
+    - different_expose.reload_reasons == "exposed_ports (set([]) => set(['9000/tcp']))"
 
 - include: ../teardown.yml
