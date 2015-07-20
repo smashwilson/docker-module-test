@@ -1,0 +1,7 @@
+---
+
+- name: remove all containers
+  docker: state=absent image={{ item }}
+  with_items:
+  - "debian:jessie"
+  - sleeper

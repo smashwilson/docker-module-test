@@ -1,0 +1,59 @@
+---
+
+- include: minimum.yml
+
+- name: explicitly specify matching option defaults
+  docker:
+    command: "sleep 1d"
+    detach: yes
+    dns: ""
+    domainname: ""
+    env:
+      PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    expose: []
+    image: sleeper
+    links: []
+    memory_limit: 512MB
+    name: minimum
+    net: bridge
+    ports: []
+    privileged: no
+    restart_policy: "no"
+    restart_policy_retry: 0
+    state: reloaded
+    stdin_open: no
+    tty: no
+    volumes: []
+    volumes_from: []
+  register: minimum_defaults
+
+- debug: var=minimum_defaults
+
+- assert: { that: "not (minimum_defaults | changed)" }
+
+- include: teardown.yml
+
+# Unpredictable default values:
+# - hostname
+
+# To investigate:
+# - lxc_conf
+# - pid
+# - publish_all_ports
+
+# Connection parameters:
+# + count
+# + detach
+# + docker_api_version
+# + docker_url
+# + email
+# + insecure_registry
+# + password
+# + pull
+# + registry
+# + tls_ca_cert
+# + tls_client_cert
+# + tls_client_key
+# + tls_hostname
+# + use_tls
+# + username

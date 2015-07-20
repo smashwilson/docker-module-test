@@ -1,0 +1,7 @@
+---
+
+- include: minimum-noop.yml
+
+- include: minimum-defaults.yml
+
+- include: full-noop.yml
