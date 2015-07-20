@@ -16,6 +16,6 @@
 - assert:
     that:
     - different_dns | changed
-    - different_dns.reload_reasons == "dns ([]) => ([\"8.8.8.8\"])"
+    - different_dns.reload_reasons == "dns (set([]) => set(['8.8.8.8']))"
 
 - include: teardown.yml
