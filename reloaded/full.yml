@@ -4,7 +4,7 @@
 
 - include: volumeable.yml
 
-- name: specify all possible options
+- name: full
   docker:
     command: sleep 1d
     detach: yes

@@ -7,3 +7,5 @@ Docker module issues that it would be nice to deal with:
  * ports
  * volumes
 - [ ] `restartpolicy` changes do not trigger a reload
+- [ ] No way to override `entrypoint`
+- [ ] Traceback in full_noop: looks like `volumes` is expecting a dict, but getting a list
