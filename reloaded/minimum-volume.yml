@@ -17,6 +17,6 @@
   assert:
     that:
     - different_volumes | changed
-    - different_volumes.reload_reasons == "BOOM"
+    - different_volumes.reload_reasons == "binds (set([]) => set(['/var/wat:/usr/src/wat:ro']))"
 
 - include: ../teardown.yml

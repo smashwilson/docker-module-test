@@ -5,4 +5,5 @@ Docker module issues that it would be nice to deal with:
 - [ ] adjust reload_reasons settings to match the module options exactly
  * memory
  * ports
+ * volumes
 - [ ] `restartpolicy` changes do not trigger a reload
