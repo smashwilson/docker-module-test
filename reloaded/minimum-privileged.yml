@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: container privilege
+- name: minimum-privilege
   docker:
     name: minimum
     image: sleeper
@@ -12,7 +12,8 @@
 
 - debug: var=different_privilege
 
-- assert:
+- name: minimum-privilege assertion
+  assert:
     that:
     - different_privilege | changed
     - different_privilege.reload_reasons == "privileged (False => True)"

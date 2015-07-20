@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: different DNS
+- name: minimum-dns
   docker:
     name: minimum
     image: sleeper
@@ -13,7 +13,8 @@
 
 - debug: var=different_dns
 
-- assert:
+- name: minimum-dns assertion
+  assert:
     that:
     - different_dns | changed
     - different_dns.reload_reasons == "dns (set([]) => set(['8.8.8.8']))"

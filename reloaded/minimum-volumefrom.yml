@@ -4,7 +4,7 @@
 
 - include: volumeable.yml
 
-- name: mount a new volume
+- name: minimum-volumefrom
   docker:
     name: minimum
     image: sleeper
@@ -15,9 +15,10 @@
 
 - debug: var=different_volumesfrom
 
-- assert:
+- name: minimum-volumefrom
+  assert:
     that:
     - different_volumesfrom | changed
-    - '"volumes_from" in different_volumesfrom.reload_reasons'
+    - different_volumesfrom.reload_reasons == "BOOM"
 
 - include: ../teardown.yml

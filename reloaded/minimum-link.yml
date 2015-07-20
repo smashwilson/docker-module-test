@@ -4,7 +4,7 @@
 
 - include: linkable.yml
 
-- name: link against a new container
+- name: minimum-link
   docker:
     name: minimum
     image: sleeper
@@ -15,7 +15,8 @@
 
 - debug: var=different_link
 
-- assert:
+- name: minimum-link assertion
+  assert:
     that:
     - different_link | changed
     - different_link.reload_reasons == "links (set([]) => set(['/linkable:/minimum/linkable']))"

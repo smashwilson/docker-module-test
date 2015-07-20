@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: identical minimum options
+- name: minimum-noop
   docker:
     name: minimum
     image: sleeper
@@ -11,6 +11,7 @@
 
 - debug: var=minimum_noop
 
-- assert: { that: "not (minimum_noop | changed)" }
+- name: minimum-noop assertion
+  assert: { that: "not (minimum_noop | changed)" }
 
 - include: ../teardown.yml

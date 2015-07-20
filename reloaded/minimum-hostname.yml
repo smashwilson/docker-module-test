@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: specify an explicit hostname
+- name: minimum-hostname
   docker:
     name: minimum
     image: sleeper
@@ -12,7 +12,8 @@
 
 - debug: var=different_hostname
 
-- assert:
+- name: minimum-hostname assertion
+  assert:
     that:
     - different_hostname | changed
     - '"hostname" in different_hostname.reload_reasons'

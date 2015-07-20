@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: mount a new volume
+- name: minimum-volume
   docker:
     name: minimum
     image: sleeper
@@ -13,9 +13,10 @@
 
 - debug: var=different_volumes
 
-- assert:
+- name: minimum-volume assertion
+  assert:
     that:
     - different_volumes | changed
-    - '"volumes" in different_volumes.reload_reasons'
+    - different_volumes.reload_reasons == "BOOM"
 
 - include: ../teardown.yml

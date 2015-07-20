@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: different domainname
+- name: minimum-domainname
   docker:
     name: minimum
     image: sleeper
@@ -12,7 +12,8 @@
 
 - debug: var=different_domainname
 
-- assert:
+- name: minimum-domainname assertion
+  assert:
     that:
     - different_domainname | changed
     - different_domainname.reload_reasons == "domainname ( => different)"

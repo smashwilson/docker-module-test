@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: specify a memory limit
+- name: minimum-memorylimit
   docker:
     name: minimum
     image: sleeper
@@ -12,7 +12,8 @@
 
 - debug: var=different_mem
 
-- assert:
+- name: minimum-memorylimit assertion
+  assert:
     that:
     - different_mem | changed
     - '"memory" in different_mem.reload_reasons'

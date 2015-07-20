@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: specify a non-matching image
+- name: minimum-image
   docker:
     name: minimum
     image: debian:jessie
@@ -12,7 +12,8 @@
 
 - debug: var=different_image
 
-- assert:
+- name: minimum-image assertion
+  assert:
     that:
     - different_image | changed
     - '"image" in different_image.reload_reasons'

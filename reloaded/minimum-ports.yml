@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: publish different ports
+- name: minimum-ports
   docker:
     name: minimum
     image: sleeper
@@ -13,7 +13,8 @@
 
 - debug: var=different_ports
 
-- assert:
+- name: minimum-ports assertion
+  assert:
     that:
     - different_ports | changed
     - '"port bindings" in different_ports.reload_reasons'

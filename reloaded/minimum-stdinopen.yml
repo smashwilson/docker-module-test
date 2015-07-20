@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: open stdin
+- name: minimum-stdinopen
   docker:
     name: minimum
     image: sleeper
@@ -12,7 +12,8 @@
 
 - debug: var=different_stdinopen
 
-- assert:
+- name: minimum-stdinopen assertion
+  assert:
     that:
     - different_stdinopen | changed
     - different_stdinopen.reload_reasons == "stdin_open (False => True)"

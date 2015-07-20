@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: explicitly specify matching option defaults
+- name: minimum-defaults
   docker:
     command: "sleep 1d"
     detach: yes
@@ -28,7 +28,8 @@
 
 - debug: var=minimum_defaults
 
-- assert: { that: "not (minimum_defaults | changed)" }
+- name: minimum-defaults assertion
+  assert: { that: "not (minimum_defaults | changed)" }
 
 - include: ../teardown.yml
 

@@ -2,7 +2,7 @@
 
 - include: minimum.yml
 
-- name: expose a new port
+- name: minimum-expose
   docker:
     name: minimum
     image: sleeper
@@ -13,7 +13,8 @@
 
 - debug: var=different_expose
 
-- assert:
+- name: minimum-expose assertion
+  assert:
     that:
     - different_expose | changed
     - different_expose.reload_reasons == "exposed_ports (set([]) => set(['9000/tcp']))"
