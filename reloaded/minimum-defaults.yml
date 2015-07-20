@@ -13,7 +13,6 @@
     expose: []
     image: sleeper
     links: []
-    memory_limit: 512MB
     name: minimum
     net: bridge
     ports: []
@@ -35,6 +34,7 @@
 
 # Unpredictable default values:
 # - hostname
+# - memory_limit
 
 # To investigate:
 # - lxc_conf
