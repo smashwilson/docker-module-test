@@ -1,0 +1,21 @@
+---
+
+- include: minimum.yml
+
+- name: mount a new volume
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    volumes:
+    - "/var/wat:/usr/src/wat:ro"
+  register: different_volumes
+
+- debug: var=different_volumes
+
+- assert:
+    that:
+    - different_volumes | changed
+    - '"volumes" in different_volumes.reload_reasons'
+
+- include: teardown.yml

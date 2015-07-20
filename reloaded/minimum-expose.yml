@@ -1,0 +1,21 @@
+---
+
+- include: minimum.yml
+
+- name: expose a new port
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    expose:
+    - "9000"
+  register: different_expose
+
+- debug: var=different_expose
+
+- assert:
+    that:
+    - different_expose | changed
+    - different_expose.reload_reasons == "exposed_ports ([]) => ([\"9000/tcp\"])"
+
+- include: teardown.yml

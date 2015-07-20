@@ -1,0 +1,20 @@
+---
+
+- include: minimum.yml
+
+- name: specify a memory limit
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    memory_limit: 512MB
+  register: different_mem
+
+- debug: var=different_mem
+
+- assert:
+    that:
+    - different_mem | changed
+    - '"memory_limit" in different_mem.reload_reasons'
+
+- include: teardown.yml

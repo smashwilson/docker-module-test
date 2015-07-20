@@ -1,0 +1,23 @@
+---
+
+- include: minimum.yml
+
+- include: linkable.yml
+
+- name: link against a new container
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    links:
+    - "linkable:linkable"
+  register: different_link
+
+- debug: var=different_link
+
+- assert:
+    that:
+    - different_link | changed
+    - different_link.reload_reasons.includes("link")
+
+- include: teardown.yml

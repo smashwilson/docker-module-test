@@ -1,0 +1,21 @@
+---
+
+- include: minimum.yml
+
+- name: publish different ports
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    ports:
+    - "127.0.0.1:2000:3000"
+  register: different_ports
+
+- debug: var=different_ports
+
+- assert:
+    that:
+    - different_ports | changed
+    - '"port bindings" in different_ports.reload_reasons'
+
+- include: teardown.yml

@@ -1,0 +1,23 @@
+---
+
+- include: minimum.yml
+
+- include: volumeable.yml
+
+- name: mount a new volume
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    volumes_from:
+    - volumeme
+  register: different_volumesfrom
+
+- debug: var=different_volumesfrom
+
+- assert:
+    that:
+    - different_volumesfrom | changed
+    - '"volumes_from" in different_volumesfrom.reload_reasons'
+
+- include: teardown.yml

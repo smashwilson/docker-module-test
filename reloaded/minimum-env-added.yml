@@ -1,0 +1,22 @@
+---
+
+- include: minimum.yml
+
+- name: environment variable added
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    env:
+      PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      ADDED: "this is new"
+  register: different_env_add
+
+- debug: var=different_env_add
+
+- assert:
+    that:
+    - different_env_add | changed
+    - different_env_add.reload_reasons.includes("env")
+
+- include: teardown.yml

@@ -1,0 +1,20 @@
+---
+
+- include: minimum.yml
+
+- name: use a different net mode
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    net: host
+  register: different_net
+
+- debug: var=different_net
+
+- assert:
+    that:
+    - different_net | changed
+    - different_net.reload_reasons == "net (\"bridge\") => (\"host\")"
+
+- include: teardown.yml

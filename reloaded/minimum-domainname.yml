@@ -1,0 +1,20 @@
+---
+
+- include: minimum.yml
+
+- name: different domainname
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    domainname: different
+  register: different_domainname
+
+- debug: var=different_domainname
+
+- assert:
+    that:
+    - different_domainname | changed
+    - different_domainname.reload_reasons == "domainname (\"\") => (\"different\")"
+
+- include: teardown.yml

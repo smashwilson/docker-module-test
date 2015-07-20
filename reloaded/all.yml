@@ -4,4 +4,40 @@
 
 - include: minimum-defaults.yml
 
+- include: minimum-command.yml
+
+- include: minimum-dns.yml
+
+- include: minimum-domainname.yml
+
+- include: minimum-env-added.yml
+
+- include: minimum-env-changed.yml
+
+- include: minimum-expose.yml
+
+- include: minimum-hostname.yml
+
+- include: minimum-image.yml
+
+- include: minimum-link.yml
+
+- include: minimum-memorylimit.yml
+
+- include: minimum-net.yml
+
+- include: minimum-ports.yml
+
+- include: minimum-privileged.yml
+
+- include: minimum-restartpolicy.yml
+
+- include: minimum-stdinopen.yml
+
+- include: minimum-tty.yml
+
+- include: minimum-volume.yml
+
+- include: minimum-volumefrom.yml
+
 - include: full-noop.yml
