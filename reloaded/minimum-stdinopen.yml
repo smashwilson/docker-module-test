@@ -17,4 +17,4 @@
     - different_stdinopen | changed
     - different_stdinopen.reload_reasons == "stdin_open (False) => (True)"
 
-- include: teardown.yml
+- include: ../teardown.yml

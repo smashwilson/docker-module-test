@@ -18,4 +18,4 @@
     - different_dns | changed
     - different_dns.reload_reasons == "dns (set([]) => set(['8.8.8.8']))"
 
-- include: teardown.yml
+- include: ../teardown.yml

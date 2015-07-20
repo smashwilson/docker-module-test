@@ -35,4 +35,4 @@
 
 - assert: { that: "not (full_noop | changed)" }
 
-- include: teardown.yml
+- include: ../teardown.yml

@@ -13,4 +13,4 @@
 
 - assert: { that: "not (minimum_noop | changed)" }
 
-- include: teardown.yml
+- include: ../teardown.yml

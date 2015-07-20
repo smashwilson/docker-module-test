@@ -30,7 +30,7 @@
 
 - assert: { that: "not (minimum_defaults | changed)" }
 
-- include: teardown.yml
+- include: ../teardown.yml
 
 # Unpredictable default values:
 # - hostname

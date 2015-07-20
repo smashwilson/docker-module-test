@@ -19,4 +19,4 @@
     - different_env_add | changed
     - different_env_add.reload_reasons.includes("env")
 
-- include: teardown.yml
+- include: ../teardown.yml

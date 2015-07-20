@@ -17,4 +17,4 @@
     - different_mem | changed
     - '"memory_limit" in different_mem.reload_reasons'
 
-- include: teardown.yml
+- include: ../teardown.yml

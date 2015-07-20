@@ -17,4 +17,4 @@
     - different_domainname | changed
     - different_domainname.reload_reasons == "domainname (\"\") => (\"different\")"
 
-- include: teardown.yml
+- include: ../teardown.yml

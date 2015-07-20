@@ -18,4 +18,4 @@
     - different_volumes | changed
     - '"volumes" in different_volumes.reload_reasons'
 
-- include: teardown.yml
+- include: ../teardown.yml

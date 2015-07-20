@@ -17,4 +17,4 @@
     - different_tty | changed
     - different_tty.reload_reasons == "tty (False) => (True)"
 
-- include: teardown.yml
+- include: ../teardown.yml

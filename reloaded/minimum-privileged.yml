@@ -17,4 +17,4 @@
     - different_privilege | changed
     - different_privilege.reload_reasons == "privileged (False) => (True)"
 
-- include: teardown.yml
+- include: ../teardown.yml

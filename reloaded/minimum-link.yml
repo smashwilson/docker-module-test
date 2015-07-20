@@ -20,4 +20,4 @@
     - different_link | changed
     - different_link.reload_reasons.includes("link")
 
-- include: teardown.yml
+- include: ../teardown.yml

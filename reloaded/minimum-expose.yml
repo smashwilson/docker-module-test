@@ -18,4 +18,4 @@
     - different_expose | changed
     - different_expose.reload_reasons == "exposed_ports ([]) => ([\"9000/tcp\"])"
 
-- include: teardown.yml
+- include: ../teardown.yml

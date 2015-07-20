@@ -17,4 +17,4 @@
     - different_image | changed
     - different_image.reload_reasons.includes("image")
 
-- include: teardown.yml
+- include: ../teardown.yml

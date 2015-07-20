@@ -17,4 +17,4 @@
     - different_hostname | changed
     - different_hostname.reload_reasons.includes("hostname")
 
-- include: teardown.yml
+- include: ../teardown.yml

@@ -17,4 +17,4 @@
     - different_net | changed
     - different_net.reload_reasons == "net (\"bridge\") => (\"host\")"
 
-- include: teardown.yml
+- include: ../teardown.yml
