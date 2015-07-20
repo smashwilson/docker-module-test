@@ -1,0 +1,24 @@
+---
+
+- include: minimum.yml
+
+- include: linkable.yml
+
+- name: minimum-link
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    links:
+    - "linkable:linkable"
+  register: different_link
+
+- debug: var=different_link
+
+- name: minimum-link assertion
+  assert:
+    that:
+    - different_link | changed
+    - different_link.reload_reasons == "links (set([]) => set(['/linkable:/minimum/linkable']))"
+
+- include: ../teardown.yml

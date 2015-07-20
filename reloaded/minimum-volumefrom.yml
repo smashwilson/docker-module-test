@@ -1,0 +1,24 @@
+---
+
+- include: minimum.yml
+
+- include: volumeable.yml
+
+- name: minimum-volumefrom
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    volumes_from:
+    - volumeable
+  register: different_volumesfrom
+
+- debug: var=different_volumesfrom
+
+- name: minimum-volumefrom
+  assert:
+    that:
+    - different_volumesfrom | changed
+    - different_volumesfrom.reload_reasons == "volumes_from (set([]) => set(['volumeable']))"
+
+- include: ../teardown.yml

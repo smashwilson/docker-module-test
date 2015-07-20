@@ -1,0 +1,22 @@
+---
+
+- include: exporter.yml
+
+- name: exporter-expose-added
+  docker:
+    name: exporter
+    image: exporter
+    state: reloaded
+    expose:
+    - 3000
+  register: exporter_expose_added
+
+- debug: var=exporter_expose_added
+
+- name: exporter-expose-added assertion
+  assert:
+    that:
+    - exporter_expose_added | changed
+    - '"exposed_ports" in exporter_expose_added.reload_reasons'
+
+- include: ../teardown.yml

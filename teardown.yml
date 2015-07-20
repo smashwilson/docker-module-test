@@ -1,9 +1,10 @@
 ---
 
 - name: remove all containers
-  docker: state=absent image=debian:jessie
-  tags: ["teardown"]
-
-- name: remove any testimage containers
-  docker: state=absent image=testimage:latest
-  tags: ["teardown"]
+  docker: state=absent image={{ item }}
+  with_items:
+  - "debian:jessie"
+  - sleeper
+  - exporter
+  tags:
+  - teardown

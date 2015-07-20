@@ -1,0 +1,22 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-dns
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    dns:
+    - "8.8.8.8"
+  register: different_dns
+
+- debug: var=different_dns
+
+- name: minimum-dns assertion
+  assert:
+    that:
+    - different_dns | changed
+    - different_dns.reload_reasons == "dns (set([]) => set(['8.8.8.8']))"
+
+- include: ../teardown.yml

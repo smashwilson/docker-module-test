@@ -1,0 +1,28 @@
+---
+
+- include: exporter.yml
+
+- name: exporter-explicit-noop
+  docker:
+    name: exporter
+    image: exporter
+    state: reloaded
+    env:
+      THING_ONE: value one
+      THING_TWO: value two
+    expose:
+    - 1000
+    - 2000
+    volumes:
+    - /var/one
+  register: exporter_explicit_noop
+  ignore_errors: yes
+
+- debug: var=exporter_explicit_noop
+
+- name: exporter-explicit-noop assertion
+  assert:
+    that: "not (exporter_explicit_noop | changed)"
+  ignore_errors: yes
+
+- include: ../teardown.yml

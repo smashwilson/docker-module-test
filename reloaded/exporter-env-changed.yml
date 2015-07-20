@@ -1,0 +1,23 @@
+---
+
+- include: exporter.yml
+
+- name: exporter-env-changed
+  docker:
+    name: exporter
+    image: exporter
+    state: reloaded
+    env:
+      KEYTWO: this is different
+  register: exporter_env_changed
+
+- debug: var=exporter_env_changed
+
+- name: exporter-env-changed assertion
+  assert:
+    that:
+    - exporter_env_changed | changed
+    - '"environment" in exporter_env_changed.reload_reasons'
+    - '"KEYTWO" in exporter_env_changed.reload_reasons'
+
+- include: ../teardown.yml

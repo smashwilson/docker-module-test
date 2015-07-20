@@ -1,0 +1,7 @@
+---
+
+- name: minimum options
+  docker:
+    name: minimum
+    image: sleeper
+    state: started

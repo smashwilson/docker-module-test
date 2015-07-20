@@ -1,0 +1,55 @@
+---
+
+- include: linkable.yml
+
+- include: volumeable.yml
+
+- name: full
+  docker:
+    command: sleep 1d
+    detach: yes
+    dns:
+    - "8.8.8.8"
+    domainname: initialdomainname
+    env:
+      INBOTH: "yes"
+      VALUECHANGE: "initialvalue"
+      ONLYINITIAL: "yes"
+    expose: ["2000"]
+    hostname: initialhostname
+    image: debian:jessie
+    links: ["linkable"]
+    memory_limit: 512MB
+    name: running
+    net: bridge
+    ports: ["3000", "3001:3002", "127.0.0.1:3002:3003", "3004:3005/tcp", "3006/tcp"]
+    privileged: yes
+    restart_policy: on-failure
+    restart_policy_retry: 10
+    state: started
+    stdin_open: yes
+    tty: yes
+    volumes: ["/usr:/var/wat", "/etc:/var/huh:ro", "/usr/local"]
+    volumes_from: ["volumeable"]
+
+# To investigate:
+# - lxc_conf
+# - pid
+# - publish_all_ports
+
+# Connection parameters:
+# + count
+# + detach
+# + docker_api_version
+# + docker_url
+# + email
+# + insecure_registry
+# + password
+# + pull
+# + registry
+# + tls_ca_cert
+# + tls_client_cert
+# + tls_client_key
+# + tls_hostname
+# + use_tls
+# + username

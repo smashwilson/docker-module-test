@@ -1,0 +1,22 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-restartpolicy
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    restart_policy: on-failure
+  register: different_restartpolicy
+
+- debug: var=different_restartpolicy
+
+- name: minimum-restartpolicy assertion
+  assert:
+    that:
+    - different_restartpolicy | changed
+    - different_restartpolicy.reload_reasons == "restart_policy (no => on-failure)"
+  ignore_errors: yes
+
+- include: ../teardown.yml

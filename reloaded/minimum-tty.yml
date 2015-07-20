@@ -1,0 +1,21 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-tty
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    tty: yes
+  register: different_tty
+
+- debug: var=different_tty
+
+- name: minimum-tty assertion
+  assert:
+    that:
+    - different_tty | changed
+    - different_tty.reload_reasons == "tty (False => True)"
+
+- include: ../teardown.yml

@@ -1,0 +1,23 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-env-changed
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    env:
+      PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/added"
+  register: different_env_changed
+
+- debug: var=different_env_changed
+
+- name: minimum-env-changed assertion
+  assert:
+    that:
+    - different_env_changed | changed
+    - '"environment" in different_env_add.reload_reasons'
+    - '"PATH" in different_env_add.reload_reasons'
+
+- include: ../teardown.yml

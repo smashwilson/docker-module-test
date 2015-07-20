@@ -1,0 +1,18 @@
+---
+
+- include: exporter.yml
+
+- name: exporter-noop
+  docker:
+    name: exporter
+    image: exporter
+    state: reloaded
+  register: exporter_noop
+
+- debug: var=exporter_noop
+
+- name: exporter_noop assertion
+  assert:
+    that: "not (exporter_noop | changed)"
+
+- include: ../teardown.yml

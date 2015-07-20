@@ -1,0 +1,21 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-privilege
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    privileged: yes
+  register: different_privilege
+
+- debug: var=different_privilege
+
+- name: minimum-privilege assertion
+  assert:
+    that:
+    - different_privilege | changed
+    - different_privilege.reload_reasons == "privileged (False => True)"
+
+- include: ../teardown.yml

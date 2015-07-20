@@ -5,7 +5,7 @@
   tasks:
 
   - include: teardown.yml
-    tags: ["present", "started", "reloaded", "restarted", "stopped", "killed", "absent"]
+    tags: always
 
   # STATE: PRESENT
 

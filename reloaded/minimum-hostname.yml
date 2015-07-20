@@ -1,0 +1,21 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-hostname
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    hostname: somehost
+  register: different_hostname
+
+- debug: var=different_hostname
+
+- name: minimum-hostname assertion
+  assert:
+    that:
+    - different_hostname | changed
+    - '"hostname" in different_hostname.reload_reasons'
+
+- include: ../teardown.yml

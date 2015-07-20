@@ -1,0 +1,22 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-expose
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    expose:
+    - "9000"
+  register: different_expose
+
+- debug: var=different_expose
+
+- name: minimum-expose assertion
+  assert:
+    that:
+    - different_expose | changed
+    - different_expose.reload_reasons == "exposed_ports (set([]) => set(['9000/tcp']))"
+
+- include: ../teardown.yml

@@ -1,0 +1,21 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-stdinopen
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    stdin_open: yes
+  register: different_stdinopen
+
+- debug: var=different_stdinopen
+
+- name: minimum-stdinopen assertion
+  assert:
+    that:
+    - different_stdinopen | changed
+    - different_stdinopen.reload_reasons == "stdin_open (False => True)"
+
+- include: ../teardown.yml

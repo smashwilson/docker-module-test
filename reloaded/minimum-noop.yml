@@ -1,0 +1,17 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-noop
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+  register: minimum_noop
+
+- debug: var=minimum_noop
+
+- name: minimum-noop assertion
+  assert: { that: "not (minimum_noop | changed)" }
+
+- include: ../teardown.yml

@@ -1,0 +1,136 @@
+---
+
+- include: minimum-noop.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_noop
+
+- include: minimum-defaults.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_defaults
+
+- include: minimum-command.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_command
+
+- include: minimum-dns.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_dns
+
+- include: minimum-domainname.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_domainname
+
+- include: minimum-env-added.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_envadded
+
+- include: minimum-env-changed.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_envchanged
+
+- include: minimum-expose.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_expose
+
+- include: minimum-hostname.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_hostname
+
+- include: minimum-image.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_image
+
+- include: minimum-link.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_link
+
+- include: minimum-memorylimit.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_memorylimit
+
+- include: minimum-net.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_net
+
+- include: minimum-ports.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_ports
+
+- include: minimum-privileged.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_privileged
+
+- include: minimum-restartpolicy.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_restartpolicy
+
+- include: minimum-stdinopen.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_stdinopen
+
+- include: minimum-tty.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_tty
+
+- include: minimum-volume.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_volume
+
+- include: minimum-volumefrom.yml
+  tags:
+  - reloaded
+  - reloaded_minimum_volumefrom
+
+- include: full-noop.yml
+  tags:
+  - reloaded
+  - reloaded_full_noop
+
+- include: exporter-noop.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_noop
+
+- include: exporter-explicit-noop.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_explicit_noop
+
+- include: exporter-env-added.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_env_added
+
+- include: exporter-env-changed.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_env_changed
+
+- include: exporter-expose-added.yml
+  tags:
+  - reloaded
+  - reloaded_exporter
+  - reloaded_exporter_expose_added

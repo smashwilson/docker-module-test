@@ -1,0 +1,21 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-image
+  docker:
+    name: minimum
+    image: debian:jessie
+    state: reloaded
+    command: "sleep 1d" # So the command still matches
+  register: different_image
+
+- debug: var=different_image
+
+- name: minimum-image assertion
+  assert:
+    that:
+    - different_image | changed
+    - '"image" in different_image.reload_reasons'
+
+- include: ../teardown.yml

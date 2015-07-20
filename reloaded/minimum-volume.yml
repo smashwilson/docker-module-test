@@ -1,0 +1,22 @@
+---
+
+- include: minimum.yml
+
+- name: minimum-volume
+  docker:
+    name: minimum
+    image: sleeper
+    state: reloaded
+    volumes:
+    - "/var/wat:/usr/src/wat:ro"
+  register: different_volumes
+
+- debug: var=different_volumes
+
+- name: minimum-volume assertion
+  assert:
+    that:
+    - different_volumes | changed
+    - different_volumes.reload_reasons == "binds (set([]) => set(['/var/wat:/usr/src/wat:ro']))"
+
+- include: ../teardown.yml

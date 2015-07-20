@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -ueo pipefail
+
+ROOT=$(cd $(dirname $0)/.. && pwd)
+
+PYTHON=$(which python)
+
+cat <<EOF >${ROOT}/inventory
+localhost ansible_python_interpreter=${PYTHON}
+EOF
+
+export ANSIBLE_LIBRARY=~/code/ansible-modules-core
+
+ansible-playbook -i ${ROOT}/inventory ${ROOT}/site.yml $*

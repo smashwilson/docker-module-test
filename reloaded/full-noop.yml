@@ -1,0 +1,41 @@
+---
+
+- include: full.yml
+
+- name: full-noop
+  docker:
+    command: sleep 1d
+    detach: yes
+    dns:
+    - "8.8.8.8"
+    domainname: initialdomainname
+    env:
+      INBOTH: "yes"
+      VALUECHANGE: "initialvalue"
+      ONLYINITIAL: "yes"
+    expose: ["2000"]
+    hostname: initialhostname
+    image: debian:jessie
+    links: ["linkable"]
+    memory_limit: 512MB
+    name: running
+    net: bridge
+    ports: ["3000", "3001:3002", "127.0.0.1:3002:3003", "3004:3005/tcp", "3006/tcp"]
+    privileged: yes
+    restart_policy: on-failure
+    restart_policy_retry: 10
+    state: reloaded
+    stdin_open: yes
+    tty: yes
+    volumes: ["/usr:/var/wat", "/etc:/var/huh:ro", "/usr/local"]
+    volumes_from: ["volumeable"]
+  register: full_noop
+  ignore_errors: yes
+
+- debug: var=full_noop
+
+- name: full-noop assertion
+  assert: { that: "not (full_noop | changed)" }
+  ignore_errors: yes
+
+- include: ../teardown.yml
