@@ -17,6 +17,7 @@
 - assert:
     that:
     - different_env_add | changed
-    - different_env_add.reload_reasons.includes("env")
+    - '"environment" in different_env_add.reload_reasons'
+    - '"ADDED" in different_env_add.reload_reasons'
 
 - include: ../teardown.yml
