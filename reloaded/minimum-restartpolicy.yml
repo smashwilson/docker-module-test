@@ -17,5 +17,6 @@
     that:
     - different_restartpolicy | changed
     - different_restartpolicy.reload_reasons == "restart_policy (no => on-failure)"
+  ignore_errors: yes
 
 - include: ../teardown.yml
