@@ -19,6 +19,6 @@
   assert:
     that:
     - different_volumesfrom | changed
-    - different_volumesfrom.reload_reasons == "BOOM"
+    - different_volumesfrom.reload_reasons == "volumes_from (set([]) => set(['volumeable']))"
 
 - include: ../teardown.yml
