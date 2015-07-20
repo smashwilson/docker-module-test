@@ -1,4 +1,4 @@
 ---
 
 - name: existing container we can mount a volume from
-  docker: name=volumeme state=present image=debian:jessie volumes=["/usr"]
+  docker: name=volumeable state=present image=debian:jessie volumes=["/usr"]

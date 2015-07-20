@@ -10,7 +10,7 @@
     image: sleeper
     state: reloaded
     volumes_from:
-    - volumeme
+    - volumeable
   register: different_volumesfrom
 
 - debug: var=different_volumesfrom

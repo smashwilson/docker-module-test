@@ -16,7 +16,7 @@
     expose: ["2000"]
     hostname: initialhostname
     image: debian:jessie
-    links: ["linkme"]
+    links: ["linkable"]
     memory_limit: 512MB
     name: running
     net: bridge
@@ -28,7 +28,7 @@
     stdin_open: yes
     tty: yes
     volumes: ["/usr:/var/wat", "/etc:/var/huh:ro", "/usr/local"]
-    volumes_from: ["volumeme"]
+    volumes_from: ["volumeable"]
   register: full_noop
 
 - debug: var=full_noop
