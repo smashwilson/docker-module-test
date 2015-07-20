@@ -15,6 +15,6 @@
 - assert:
     that:
     - different_hostname | changed
-    - different_hostname.reload_reasons.includes("hostname")
+    - '"hostname" in different_hostname.reload_reasons'
 
 - include: ../teardown.yml

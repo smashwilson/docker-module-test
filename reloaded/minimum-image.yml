@@ -15,6 +15,6 @@
 - assert:
     that:
     - different_image | changed
-    - different_image.reload_reasons.includes("image")
+    - '"image" in different_image.reload_reasons'
 
 - include: ../teardown.yml

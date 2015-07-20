@@ -15,6 +15,6 @@
 - assert:
     that:
     - different_stdinopen | changed
-    - different_stdinopen.reload_reasons == "stdin_open (False) => (True)"
+    - different_stdinopen.reload_reasons == "stdin_open (False => True)"
 
 - include: ../teardown.yml

@@ -15,6 +15,6 @@
 - assert:
     that:
     - different_privilege | changed
-    - different_privilege.reload_reasons == "privileged (False) => (True)"
+    - different_privilege.reload_reasons == "privileged (False => True)"
 
 - include: ../teardown.yml

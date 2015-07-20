@@ -15,6 +15,6 @@
 - assert:
     that:
     - different_restartpolicy | changed
-    - different_restartpolicy.reload_reasons == "restart_policy (\"no\") => (\"on-failure\")"
+    - different_restartpolicy.reload_reasons == "restart_policy (no => on-failure)"
 
 - include: ../teardown.yml
